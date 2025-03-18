@@ -1,7 +1,7 @@
 const API_KEY = "fQaKtrXUE5IscIzFhdiweDsAO7ZOWZ1E9C4tvGqV"; 
 const BASE_URL = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos";
 
-// DOM Elements
+
 const dateForm = document.getElementById("date-form");
 const dateInput = document.getElementById("date-input");
 const photoGallery = document.getElementById("photo-gallery");
@@ -22,7 +22,7 @@ async function fetchPhotos(date) {
   }
 
   function displayPhotos(photos) {
-    photoGallery.innerHTML = ""; // Clear previous photos
+    photoGallery.innerHTML = ""; 
   
     if (photos.length === 0) {
       photoGallery.innerHTML = "<p>No photos available for this date.</p>";
@@ -46,7 +46,7 @@ async function fetchPhotos(date) {
     });
   }
   
-  // Handle form submission
+
   dateForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const selectedDate = dateInput.value;
@@ -59,7 +59,7 @@ async function fetchPhotos(date) {
     displayPhotos(photos);
   });
   
-  // Load photos for a significant date on page load
+
   window.addEventListener("load", async () => {
     const significantDate = "2021-10-02"; 
     dateInput.value = significantDate;
