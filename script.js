@@ -20,3 +20,50 @@ async function fetchPhotos(date) {
       return [];
     }
   }
+
+  function displayPhotos(photos) {
+    photoGallery.innerHTML = ""; // Clear previous photos
+  
+    if (photos.length === 0) {
+      photoGallery.innerHTML = "<p>No photos available for this date.</p>";
+      return;
+    }
+  
+    photos.slice(0, 3).forEach(photo => {
+      const photoCard = document.createElement("div");
+      photoCard.className = "photo-card";
+  
+      const img = document.createElement("img");
+      img.src = photo.img_src;
+      img.alt = `Mars Rover Photo taken on ${photo.earth_date}`;
+  
+      const caption = document.createElement("p");
+      caption.textContent = `Earth Date: ${photo.earth_date}, Sol: ${photo.sol}, Camera: ${photo.camera.full_name}`;
+  
+      photoCard.appendChild(img);
+      photoCard.appendChild(caption);
+      photoGallery.appendChild(photoCard);
+    });
+  }
+  
+  // Handle form submission
+  dateForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const selectedDate = dateInput.value;
+    if (!selectedDate) {
+      alert("Please select a date.");
+      return;
+    }
+  
+    const photos = await fetchPhotos(selectedDate);
+    displayPhotos(photos);
+  });
+  
+  // Load photos for a significant date on page load
+  window.addEventListener("load", async () => {
+    const significantDate = "2021-10-02"; 
+    dateInput.value = significantDate;
+    const photos = await fetchPhotos(significantDate);
+    displayPhotos(photos);
+  });
+  
